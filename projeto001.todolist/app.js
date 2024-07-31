@@ -1,8 +1,9 @@
 'use strict';
 
-let banco = [
-    {'tarefa':'Estudar JS', 'status': 'checked'}
-];
+let banco = [];
+
+const getBanco = () => JSON.parse(localStorage.getItem('todoList')) ?? [];
+const setBanco = (banco) => localStorage.setItem ('todoList', JSON.stringify(banco));
 
  const criarItem = (tarefa, status, indice) => {
     const item = document.createElement('label');
@@ -26,6 +27,7 @@ const limparTarefas = () => {
 
 const atualizarTela = () => {
     limparTarefas();
+    const banco = getBanco();
     banco.forEach( (item, indice) => criarItem (item.tarefa, item.status, indice));
 }
 
@@ -33,17 +35,23 @@ const inserirItem = (evento) => {
     const tecla = evento.key;
     const texto = evento.target.value;
     if (tecla === 'Enter'){
-        banco.push ({'tarefa': texto, 'status': ''})
+        const banco = getBanco();
+        banco.push ({'tarefa': texto, 'status': ''});
+        setBanco(banco);
         atualizarTela();
         evento.target.value = ''
     }
 }
 const removerItem = (indice) => {
+    const banco = getBanco();
     banco.splice (indice, 1);
+    setBanco(banco);
     atualizarTela();
 }
 const atualizarItem = (indice) => {
-    banco[indice].status = banco[indice].status === '' ? 'checked' : ''
+    const banco = getBanco();
+    banco[indice].status = banco[indice].status === '' ? 'checked' : '';
+    setBanco(banco);
     atualizarTela();
 }
 const clickItem = (evento) => {
@@ -52,11 +60,12 @@ const clickItem = (evento) => {
         const indice = elemento.dataset.indice;
         removerItem(indice);
     }else if (elemento.type === 'checkbox') {
-        const indice = elemento.dataset.indice; }
-        atualizarItem (indice);
+        const indice = elemento.dataset.indice; 
+        atualizarItem(indice);
+}
 }
 
 document.getElementById('newItem').addEventListener('keypress',inserirItem);
 document.getElementById('todoList').addEventListener('click', clickItem);
 
-atualizarTela();
+atualizarTela( );
