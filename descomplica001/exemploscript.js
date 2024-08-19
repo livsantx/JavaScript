@@ -1,5 +1,8 @@
-let nome = prompt('Qual o seu nome?')
+console.log('testando')
+var a = 20;
+var b = 10;
+var total = a + b;
+console.log(total);
 
-let idade = prompt('Qual sua idade?')
-
-alert(`Seu nome é ${nome} e sua idade é ${idade}`)
+var nomePessoa = 'Livia';
+console.log(nomePessoa);
