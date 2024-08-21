@@ -6,3 +6,7 @@ console.log(total);
 
 var nomePessoa = 'Livia';
 console.log(nomePessoa);
+
+var n = ''
+console.log(typeof(n))
+
